@@ -3,6 +3,7 @@ import client from "@/apolloClient";
 import {gql} from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
+import FormatDate from "@/components/FormatDate/FormatDate";
 
 export default function Post({ post }) {
   return (
@@ -13,9 +14,12 @@ export default function Post({ post }) {
       </div>
       <h1>{post.blogTitle}</h1>
       <div className='meta'>
-        <p>Posted date: {post.postedDate}</p>
-        <p>Reading time: {post.readTime} {post.readTime === '1' ? 'min' : 'mins'}</p>
-        <p>Category: {post.postCategories[0]}</p>
+        <p>Posted date: {FormatDate(post.postedDate)}</p>
+        <p>Reading time: {post.readTime} {post.readTime === '1' ? 'minute' : 'minutes'}</p>
+        <p>Tags: {post.tags.map((tag, i, row) => (
+          <span key={i}>{i + 1 === row.length ? `${tag}` : `${tag}, `}</span>
+        ))}</p>
+        <p>Category: {post.category}</p>
       </div>
       <div dangerouslySetInnerHTML={{__html:post.content.html}} />
     </main>
@@ -62,7 +66,8 @@ export async function getStaticProps({params}) {
             raw
             html
           }
-          postCategories
+          tags
+          category
         }
       }
     `,

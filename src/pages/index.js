@@ -3,9 +3,9 @@ import Head from 'next/head'
 import client from "@/apolloClient";
 import Image from "next/image";
 import Link from "next/link";
+import FormatDate from "@/components/FormatDate/FormatDate";
 
 export default function Home({posts}) {
-  console.log(posts)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Head>
@@ -24,7 +24,7 @@ export default function Home({posts}) {
                     <Image src={post.bannerImage.url} alt={post.blogTitle} width={500} height={500} />
                   </div>
                   <p>{post.excerpt}</p>
-                  <p>{post.postedDate}</p>
+                  <p>{FormatDate(post.postedDate)}</p>
                 </div>
               </Link>
             )

@@ -10,6 +10,7 @@ export default function Header({ headerData }) {
       <Head>
         <title>{sitename} - {siteDescription}</title>
         <meta name="description" content={siteDescription} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Link href='/' className='flex flex-col justify-center items-center' title={sitename}>
         <div className='logo'>

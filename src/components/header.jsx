@@ -3,7 +3,7 @@ import Link from "next/link"
 import Head from "next/head"
 
 export default function Header({ headerData }) {
-  const { sitename, siteDescription, logo } = headerData
+  const { sitename, siteDescription, logo, favicon } = headerData
 
   return (
     <header>
@@ -11,6 +11,7 @@ export default function Header({ headerData }) {
         <title>{sitename} - {siteDescription}</title>
         <meta name="description" content={siteDescription} />
         <meta name="robots" content="noindex,nofollow" />
+        <link rel="shortcut icon" href={favicon.url} />
       </Head>
       <Link href='/' className='flex flex-col justify-center items-center' title={sitename}>
         <div className='logo'>

@@ -1,67 +1,27 @@
-import { useRouter } from "next/router";
-import client from "@/apolloClient";
-import Image from "next/image";
-import FormatDate from "@/components/formatDate";
-import Link from "next/link";
-import {gql} from "@apollo/client";
-import Layout from "@/components/layout";
-import { useState } from "react";
-import SearchForm from "@/components/searchForm";
+import { useRouter } from "next/router"
+import client from "@/apolloClient"
+import Image from "next/image"
+import FormatDate from "@/components/formatDate"
+import Link from "next/link"
+import {gql} from "@apollo/client"
+import Layout from "@/components/layout"
 
 export default function Search({posts, global}) {
   const router = useRouter()
   const { query } = router.query
 
-  const filterSearch = ({
-    page,
-    searchQuery,
-    category,
-    tag,
-  }) => {
-    const { query } = router
-
-    if (page) query.page = page
-    if (searchQuery) query.searchQuery = searchQuery
-    if (category) query.category = category
-    if (tag) query.tag = tag
-
-    router.push({
-      pathname: router.pathname,
-      query: query
-    })
-  }
-
-  // const pageHandler = (e) => {
-  //   filterSearch({ page })
-  // }
-  // const categoryHandler = (e) => {
-  //   filterSearch({ category: e.target.value })
-  // }
-  //
-  // const tagHandler = (e) => {
-  //   filterSearch({ tag: e.target.value })
-  // }
+  /*
+  TODO:
+  1. Have the search form on the page
+  2. Form to have the search term
+  3. Clear search query
+  4. Order search results by post, category and tags
+  */
 
   return (
     <Layout data={global}>
       <h1>Search results for keyword: {query}</h1>
-      <br /><br />
       <div>
-        {/*<div>*/}
-        {/*  <div className="my-3">*/}
-        {/*    <h3>Categories</h3>*/}
-        {/*    <select*/}
-        {/*      className="w-full"*/}
-        {/*      value={category}*/}
-        {/*      onChange={categoryHandler}*/}
-        {/*    >*/}
-        {/*      <option value="all">All</option>*/}
-        {/*      {categories && categories.map(( category ) => (*/}
-        {/*        <option key={category} value={category}>{category}</option>*/}
-        {/*      ))}*/}
-        {/*    </select>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
         <div className="have-posts">
           {posts.map((post, i) => {
             const keyword = query
@@ -114,7 +74,6 @@ export default function Search({posts, global}) {
         <div className="no-posts">
           <p>No posts found for keyword: {query}</p>
         </div>
-
       </div>
     </Layout>
   )

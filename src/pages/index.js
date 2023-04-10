@@ -3,7 +3,7 @@ import Head from 'next/head'
 import client from "@/apolloClient"
 import Layout from "@/components/layout"
 import Posts from "@/components/posts"
-import SearchForm from "@/components/searchForm";
+// import SearchForm from "@/components/searchForm";
 
 export default function Home( {posts, global} ) {
 
@@ -13,7 +13,7 @@ export default function Home( {posts, global} ) {
           <title>Home | {global.sitename} | {global.siteDescription}</title>
         </Head>
         <div className='wrapper'>
-          <SearchForm />
+          {/*<SearchForm />*/}
           <Posts posts={posts} global={global} />
         </div>
     </Layout>

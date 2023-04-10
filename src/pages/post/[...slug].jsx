@@ -3,26 +3,31 @@ import client from "@/apolloClient";
 import {gql} from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import FormatDate from "@/components/FormatDate/FormatDate";
+import FormatDate from "@/components/formatDate";
+import Layout from "@/components/layout";
 
-export default function Post({ post }) {
+export default function Post({ post, global }) {
   return (
-    <main>
-      <Link href='/'>Back</Link>
+    <Layout data={global}>
       <div className='post-img'>
-        <Image src={post.bannerImage.url} alt={post.blogTitle} width={500} height={500} />
+        <Image src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
       </div>
       <h1>{post.blogTitle}</h1>
       <div className='meta'>
         <p>Posted date: {FormatDate(post.postedDate)}</p>
         <p>Reading time: {post.readTime} {post.readTime === '1' ? 'minute' : 'minutes'}</p>
-        <p>Tags: {post.tags.map((tag, i, row) => (
-          <span key={i}>{i + 1 === row.length ? `${tag}` : `${tag}, `}</span>
-        ))}</p>
-        <p>Category: {post.category}</p>
+        {post.tags.length > 0 && (
+          <div>Tags: {post.tags.map((tag, i, row) => (
+            <div key={i}>
+              <Link href={`/tag/${tag.slug}`}>{tag.tagTitle}</Link>
+              {i + 1 === row.length ? '' : `, `}
+            </div>
+          ))}</div>
+        )}
+        Category: <Link href={`/category/${post.category.slug}`}>{post.category.categoryTitle}</Link>
       </div>
       <div dangerouslySetInnerHTML={{__html:post.content.html}} />
-    </main>
+    </Layout>
   )
 }
 
@@ -63,23 +68,44 @@ export async function getStaticProps({params}) {
             url
           }
           content {
-            raw
             html
           }
-          tags
-          category
+          category {
+            categoryTitle
+            slug
+          }
+          tags {
+            tagTitle
+            slug
+          }
+        }
+        globals {
+          sitename
+          siteDescription
+          copyrightText
+          id
+          logo {
+            url
+          }
+          placeholderImage {
+            url
+          }
+          favicon {
+            url
+          }
         }
       }
     `,
     variables: {slug}
   })
 
-  const { posts } = data
+  const { posts, globals } = data
   const post = posts[0]
 
   return {
     props: {
-      post
+      post,
+      global: globals[0]
     }
   }
 }

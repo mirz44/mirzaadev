@@ -1,37 +1,22 @@
 import { gql } from '@apollo/client'
 import Head from 'next/head'
-import client from "@/apolloClient";
-import Image from "next/image";
-import Link from "next/link";
-import FormatDate from "@/components/FormatDate/FormatDate";
+import client from "@/apolloClient"
+import Image from "next/image"
+import Link from "next/link"
+import FormatDate from "@/components/formatDate"
+import Layout from "@/components/layout"
+import PostCard from "@/components/postCard";
 
-export default function Home({posts}) {
+export default function Home( {posts, global} ) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Head>
-        <title>mirzaa.dev - Tech Blog for Frontend Developers</title>
-        <meta name="description" content="Mirzaa's Tech Blog for Frontend Developers" />
-      </Head>
-      <h1>mirzaa.dev</h1>
-      <div className='wrapper'>
-        <div className='posts'>
-          {posts.map((post, i) => {
-            return (
-              <Link href={`post/${post.slug}`}>
-                <div className='post' key={i}>
-                  <h3>{post.blogTitle}</h3>
-                  <div className='post-img'>
-                    <Image src={post.bannerImage.url} alt={post.blogTitle} width={500} height={500} />
-                  </div>
-                  <p>{post.excerpt}</p>
-                  <p>{FormatDate(post.postedDate)}</p>
-                </div>
-              </Link>
-            )
-          })}
+    <Layout data={global}>
+        <Head>
+          <title>Home | {global.sitename} | {global.siteDescription}</title>
+        </Head>
+        <div className='wrapper'>
+          <PostCard posts={posts} global={global} />
         </div>
-      </div>
-    </main>
+    </Layout>
   )
 }
 
@@ -39,7 +24,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
       query Posts {
-        posts {
+        posts (orderBy: postedDate_DESC) {
           blogTitle
           createdAt
           excerpt
@@ -55,15 +40,40 @@ export async function getStaticProps() {
           content {
             raw
           }
+          category {
+            categoryTitle
+            slug
+          }
+          tags {
+            tagTitle
+            slug
+          }
+        }
+        
+        globals {
+          sitename
+          siteDescription
+          copyrightText
+          id
+          logo {
+            url
+          }
+          placeholderImage {
+            url
+          }
+          favicon {
+            url
+          }
         }
       }
     `
   })
 
-  const { posts } = data
+  const { posts, globals } = data
   return {
     props: {
-      posts
+      posts,
+      global: globals[0]
     }
   }
 }

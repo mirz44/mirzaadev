@@ -5,7 +5,7 @@ export default function Posts({ posts, global }) {
     <>
       {posts.map((post, i) => {
         return (
-          <PostItem i={i} post={post} global={global} />
+          <PostItem key={i} i={i} post={post} global={global} />
         )
       })}
     </>

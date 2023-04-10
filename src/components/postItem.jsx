@@ -3,9 +3,9 @@ import Link from "next/link"
 import PostMeta from "@/components/postMeta"
 import PostTags from "@/components/postTags"
 
-export default function PostItem({ post, global, i }) {
+export default function PostItem({ post, global }) {
   return (
-    <div key={i} className="flex flex-col mb-12">
+    <div className="flex flex-col mb-12">
       <div className='post-img w-full'>
         <Link href={`/post/${post.slug}`}>
           <Image

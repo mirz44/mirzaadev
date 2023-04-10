@@ -34,7 +34,7 @@ export default function Search({posts, global}) {
 
             if (count > 0) {
               return (
-                <PostItem i={i} post={post} global={global} />
+                <PostItem key={i} post={post} global={global} />
               )
             }
           })}

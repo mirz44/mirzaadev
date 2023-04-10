@@ -1,36 +1,32 @@
 import Image from "next/image"
 import FormatDate from "@/components/formatDate"
 import Link from "next/link"
+import PostMeta from "@/components/postMeta";
 
 export default function Posts({ posts, global }) {
   return (
     <>
       {posts.map((post, i) => {
         return (
-          <div key={i}>
-            <div className='post-img'>
-              <Image src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
+          <div key={i} className="flex flex-col mb-12">
+            <div className='post-img w-full'>
+              <Image
+                src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url}
+                alt={post.blogTitle}
+                title={post.blogTitle}
+                width={600}
+                height={300}
+                className="w-full rounded-md mb-3"
+              />
             </div>
-            <h3>{post.blogTitle}</h3>
-            <div className='meta'>
-              {post.postedDate && (
-                <p>Posted date: {FormatDate(post.postedDate)}</p>
-              )}
-              {post.readTime && (
-                <p>Reading time: {post.readTime} {post.readTime === '1' ? 'minute' : 'minutes'}</p>
-              )}
-              {post.tags.length > 0 && (
-                <div>Tags: {post.tags.map((tag, i, row) => (
-                  <div key={i}>
-                    <Link href={`/tag/${tag.slug}`} title={`Link to ${tag.tagTitle} tag listing`}>{tag.tagTitle}</Link>
-                    {i + 1 === row.length ? '' : `, `}
-                  </div>
-                ))}</div>
-              )}
-              Category: <Link href={`/category/${post.category.slug}`} title={`Link to ${post.category.categoryTitle} category listing`}>{post.category.categoryTitle}</Link>
-            </div>
-            <p>{post.excerpt}</p>
-            <Link href={`/post/${post.slug}`} title='Read more'>Read more</Link><br /><br />
+            <h3 className="pb-3 text-2xl font-semibold">{post.blogTitle}</h3>
+            <PostMeta post={post} />
+            <p className="pb-3">{post.excerpt}</p>
+            <Link
+              href={`/post/${post.slug}`}
+              title='Read more'
+              className="p-3 bg-yellow rounded text-black font-semibold w-fit hover:bg-yellow/75 transition-all"
+            >Read more</Link>
           </div>
         )
       })}

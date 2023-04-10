@@ -12,10 +12,8 @@ export default function Home( {posts, global} ) {
         <Head>
           <title>Home | {global.sitename} | {global.siteDescription}</title>
         </Head>
-        <div className='wrapper'>
-          {/*<SearchForm />*/}
-          <Posts posts={posts} global={global} />
-        </div>
+        {/*<SearchForm />*/}
+        <Posts posts={posts} global={global} />
     </Layout>
   )
 }

@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.no-posts {
+  display: none;
+}
+
+.have-posts:empty > .no-posts {
+  display: block;
+}

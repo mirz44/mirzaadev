@@ -1,8 +1,8 @@
-import client from "@/apolloClient";
-import { gql } from "@apollo/client";
-import Layout from "@/components/layout";
-import PostCard from "@/components/postCard";
-import Head from "next/head";
+import client from "@/apolloClient"
+import { gql } from "@apollo/client"
+import Layout from "@/components/layout"
+import Posts from "@/components/posts"
+import Head from "next/head"
 
 export default function Category({ category, posts, global }) {
   return (
@@ -11,7 +11,7 @@ export default function Category({ category, posts, global }) {
         <title>Category: {category.categoryTitle} | {global.sitename} | {global.siteDescription}</title>
       </Head>
       <h1>Category: {category.categoryTitle}</h1>
-      <PostCard posts={posts} global={global} />
+      <Posts posts={posts} global={global} />
     </Layout>
   )
 }

@@ -1,8 +1,8 @@
-import Image from "next/image";
-import FormatDate from "@/components/formatDate";
-import Link from "next/link";
+import Image from "next/image"
+import FormatDate from "@/components/formatDate"
+import Link from "next/link"
 
-export default function PostCard({ posts, global }) {
+export default function Posts({ posts, global }) {
   return (
     <>
       {posts.map((post, i) => {

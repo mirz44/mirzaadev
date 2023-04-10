@@ -1,10 +1,10 @@
 import React from "react"
-import client from "@/apolloClient";
-import {gql} from "@apollo/client";
-import Image from "next/image";
-import Link from "next/link";
-import FormatDate from "@/components/formatDate";
-import Layout from "@/components/layout";
+import client from "@/apolloClient"
+import {gql} from "@apollo/client"
+import Image from "next/image"
+import Link from "next/link"
+import FormatDate from "@/components/formatDate"
+import Layout from "@/components/layout"
 
 export default function Post({ post, global }) {
   return (

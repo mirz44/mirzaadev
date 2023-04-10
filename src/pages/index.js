@@ -1,20 +1,20 @@
 import { gql } from '@apollo/client'
 import Head from 'next/head'
 import client from "@/apolloClient"
-import Image from "next/image"
-import Link from "next/link"
-import FormatDate from "@/components/formatDate"
 import Layout from "@/components/layout"
-import PostCard from "@/components/postCard";
+import Posts from "@/components/posts"
+import SearchForm from "@/components/searchForm";
 
 export default function Home( {posts, global} ) {
+
   return (
     <Layout data={global}>
         <Head>
           <title>Home | {global.sitename} | {global.siteDescription}</title>
         </Head>
         <div className='wrapper'>
-          <PostCard posts={posts} global={global} />
+          <SearchForm />
+          <Posts posts={posts} global={global} />
         </div>
     </Layout>
   )

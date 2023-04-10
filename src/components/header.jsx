@@ -12,9 +12,6 @@ export default function Header({ headerData }) {
         <meta name="description" content={siteDescription} />
         <meta name="robots" content="noindex,nofollow" />
         <link rel="shortcut icon" href={favicon.url} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
       </Head>
       <Link href='/' className='flex flex-row justify-start items-center pb-3 md:pb-5' title={sitename}>
         <div className='logo w-14 md:w-28'>

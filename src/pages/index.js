@@ -1,19 +1,19 @@
 import { gql } from '@apollo/client'
-import Head from 'next/head'
 import client from "@/apolloClient"
 import Layout from "@/components/layout"
 import Posts from "@/components/posts"
-// import SearchForm from "@/components/searchForm";
+import SearchForm from "@/components/searchForm"
 
 export default function Home( {posts, global} ) {
-
   return (
-    <Layout data={global}>
-        <Head>
-          <title>Home | {global.sitename} | {global.siteDescription}</title>
-        </Head>
-        {/*<SearchForm />*/}
+    <Layout title="Home" data={global}>
+      <SearchForm />
+      <h2 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">
+        {global.siteDescription}
+      </h2>
+      <div className="flex max-w-2xl flex-col justify-center ml-auto mr-auto">
         <Posts posts={posts} global={global} />
+      </div>
     </Layout>
   )
 }

@@ -26,6 +26,21 @@ body {
   display: none;
 }
 
-.have-posts:empty > .no-posts {
-  display: block;
+.have-posts:empty {
+  display: none;
+
+  + .no-posts {
+    display: block;
+  }
+}
+
+a {
+  color: #e44e26;
+  transition: all 0.15s ease-in-out;
+
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.8;
+  }
 }

@@ -2,15 +2,11 @@ import client from "@/apolloClient"
 import { gql } from "@apollo/client"
 import Layout from "@/components/layout"
 import Posts from "@/components/posts"
-import Head from "next/head"
 
 export default function Category({ category, posts, global }) {
   return (
-    <Layout data={global}>
-      <Head>
-        <title>Category: {category.categoryTitle} | {global.sitename} | {global.siteDescription}</title>
-      </Head>
-      <h1>Category: {category.categoryTitle}</h1>
+    <Layout data={global} title={`Category: ${category.categoryTitle} posts`}>
+      <h1 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">Category: {category.categoryTitle}</h1>
       <Posts posts={posts} global={global} />
     </Layout>
   )

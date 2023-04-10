@@ -8,7 +8,7 @@ import Layout from "@/components/layout"
 
 export default function Post({ post, global }) {
   return (
-    <Layout data={global}>
+    <Layout title={post.blogTitle} data={global}>
       <div className='post-img'>
         <Image src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
       </div>

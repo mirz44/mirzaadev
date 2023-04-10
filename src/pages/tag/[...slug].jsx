@@ -2,15 +2,11 @@ import client from "@/apolloClient"
 import { gql } from "@apollo/client"
 import Layout from "@/components/layout"
 import Posts from "@/components/posts"
-import Head from "next/head"
 
 export default function Tag({ tag, posts, global }) {
   return (
-    <Layout data={global}>
-      <Head>
-        <title>Tag: {tag.tagTitle} | {global.sitename} | {global.siteDescription}</title>
-      </Head>
-      <h1>Tag: {tag.tagTitle}</h1>
+    <Layout data={global} title={`Tag: ${tag.tagTitle} posts`}>
+      <h1 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">Tag: {tag.tagTitle}</h1>
       <Posts posts={posts} global={global} />
     </Layout>
   )

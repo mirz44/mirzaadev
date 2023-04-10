@@ -1,14 +1,13 @@
 import { useRouter } from "next/router"
 import client from "@/apolloClient"
-import Image from "next/image"
-import FormatDate from "@/components/formatDate"
-import Link from "next/link"
 import {gql} from "@apollo/client"
 import Layout from "@/components/layout"
+import PostItem from "@/components/postItem"
 
 export default function Search({posts, global}) {
   const router = useRouter()
   const { query } = router.query
+  let count = 0
 
   /*
   TODO:
@@ -20,13 +19,12 @@ export default function Search({posts, global}) {
 
   return (
     <Layout data={global}>
-      <h1>Search results for keyword: {query}</h1>
-      <div>
+      <h1 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">Search results for keyword: {query}</h1>
+      <>
         <div className="have-posts">
           {posts.map((post, i) => {
-            const keyword = query
+            const keyword = query ? query.toLowerCase() : query
             const title = post.blogTitle.toLowerCase()
-            let count = 0
 
             if (title.includes(keyword)) {
               count = count + 1
@@ -36,45 +34,15 @@ export default function Search({posts, global}) {
 
             if (count > 0) {
               return (
-                <div key={i}>
-                  <div key={post.blogTitle}>
-                    {post.blogTitle.toLowerCase().includes(query) && (
-                      <div>
-                        <div className='post-img'>
-                          <Image src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
-                        </div>
-                        <h3>{post.blogTitle}</h3>
-                        <div className='meta'>
-                          {post.postedDate && (
-                            <p>Posted date: {FormatDate(post.postedDate)}</p>
-                          )}
-                          {post.readTime && (
-                            <p>Reading time: {post.readTime} {post.readTime === '1' ? 'minute' : 'minutes'}</p>
-                          )}
-                          {post.tags.length > 0 && (
-                            <div>Tags: {post.tags.map((tag, i, row) => (
-                              <div key={i}>
-                                <Link href={`/tag/${tag.slug}`} title={`Link to ${tag.tagTitle} tag listing`}>{tag.tagTitle}</Link>
-                                {i + 1 === row.length ? '' : `, `}
-                              </div>
-                            ))}</div>
-                          )}
-                          Category: <Link href={`/category/${post.category.slug}`} title={`Link to ${post.category.categoryTitle} category listing`}>{post.category.categoryTitle}</Link>
-                        </div>
-                        <p>{post.excerpt}</p>
-                        <Link href={`/post/${post.slug}`} title='Read more'>Read more</Link><br /><br />
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <PostItem i={i} post={post} global={global} />
               )
             }
           })}
         </div>
         <div className="no-posts">
-          <p>No posts found for keyword: {query}</p>
+          <p className="text-center text-2xl md:text-5xl text-red mb-16 max-w-3xl ml-auto mr-auto">No posts found</p>
         </div>
-      </div>
+      </>
     </Layout>
   )
 }

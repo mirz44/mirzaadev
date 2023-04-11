@@ -2,31 +2,27 @@ import React from "react"
 import client from "@/apolloClient"
 import {gql} from "@apollo/client"
 import Image from "next/image"
-import Link from "next/link"
-import FormatDate from "@/components/formatDate"
 import Layout from "@/components/layout"
+import PostMeta from "@/components/postMeta"
+import PostTags from "@/components/postTags"
 
 export default function Post({ post, global }) {
   return (
     <Layout title={post.blogTitle} data={global}>
-      <div className='post-img'>
-        <Image src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
+      <h1 className="text-center text-3xl mb-10 max-w-3xl ml-auto mr-auto">{post.blogTitle}</h1>
+      <div className='flex text-center items-center justify-center mb-10'>
+        <PostMeta post={post} single />
+        <PostTags post={post} />
       </div>
-      <h1>{post.blogTitle}</h1>
-      <div className='meta'>
-        <p>Posted date: {FormatDate(post.postedDate)}</p>
-        <p>Reading time: {post.readTime} {post.readTime === '1' ? 'minute' : 'minutes'}</p>
-        {post.tags.length > 0 && (
-          <div>Tags: {post.tags.map((tag, i, row) => (
-            <div key={i}>
-              <Link href={`/tag/${tag.slug}`}>{tag.tagTitle}</Link>
-              {i + 1 === row.length ? '' : `, `}
-            </div>
-          ))}</div>
-        )}
-        Category: <Link href={`/category/${post.category.slug}`}>{post.category.categoryTitle}</Link>
+      {post?.bannerImage && (
+        <div className='post-img md:w-full max-w-6xl ml-auto mr-auto'>
+          <Image className='w-full mb-10' src={post?.bannerImage ? post?.bannerImage.url : global?.placeholderImage.url} alt={post.blogTitle} title={post.blogTitle} width={500} height={500} />
+        </div>
+      )}
+
+      <div className='w-full md:w-3/4 xl:1/2 xl:max-w-7xl ml-auto mr-auto flex flex-col'>
+        <div className='post-content single' dangerouslySetInnerHTML={{__html:post.content.html}} />
       </div>
-      <div dangerouslySetInnerHTML={{__html:post.content.html}} />
     </Layout>
   )
 }

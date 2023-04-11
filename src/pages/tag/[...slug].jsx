@@ -7,7 +7,9 @@ export default function Tag({ tag, posts, global }) {
   return (
     <Layout data={global} title={`Tag: ${tag.tagTitle} posts`}>
       <h1 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">Tag: {tag.tagTitle}</h1>
-      <Posts posts={posts} global={global} />
+      <div className="flex max-w-2xl flex-col justify-center ml-auto mr-auto">
+        <Posts posts={posts} global={global} />
+      </div>
     </Layout>
   )
 }

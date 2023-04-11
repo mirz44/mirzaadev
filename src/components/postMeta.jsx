@@ -1,9 +1,9 @@
 import FormatDate from "@/components/formatDate"
 import Link from "next/link"
 
-export default function PostMeta({ post }) {
+export default function PostMeta({ post, single }) {
   return (
-    <div className='meta flex mb-3'>
+    <div className={`meta flex-col sm:flex-row flex ${single ? '' : 'mb-3'}`}>
       <Link className='mr-3 text-sm' href={`/category/${post.category.slug}`} title={`Link to ${post.category.categoryTitle} category listing`}>{post.category.categoryTitle}</Link>
       {post.postedDate && (
         <p className="mr-3 opacity-70 text-sm">{FormatDate(post.postedDate)}</p>

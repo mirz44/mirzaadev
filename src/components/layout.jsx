@@ -12,7 +12,7 @@ export default function Layout({ children, data, title }) {
         <link rel="shortcut icon" href={data.favicon.url} />
       </Head>
       <Header headerData={data} />
-      <div className='content-wrapper'>
+      <div className='content-wrapper mb-auto'>
         {children}
       </div>
       <Footer footerData={data} />

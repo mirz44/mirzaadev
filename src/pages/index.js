@@ -8,7 +8,7 @@ export default function Home( {posts, global} ) {
   return (
     <Layout title="Home" data={global}>
       <SearchForm />
-      <h2 className="text-center text-3xl mb-16 max-w-3xl ml-auto mr-auto">
+      <h2 className="text-center text-xl md:text-3xl mb-16 max-w-3xl ml-auto mr-auto">
         {global.siteDescription}
       </h2>
       <div className="flex max-w-2xl flex-col justify-center ml-auto mr-auto">
